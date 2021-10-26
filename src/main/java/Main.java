@@ -21,14 +21,15 @@ public class Main {
             throw new IllegalArgumentException();
         }
 
-        State state = new State(n, m, k);
-        System.out.println("Is initial state? " + state.isInitialState());
+        State state = new State();
+        System.out.println("Initial state: " + state.initializeState(n, m, k));
         PlayerA playerA = new PlayerA();
         PlayerB playerB = new PlayerB();
-        System.out.println("The list with balls: " + state.getBallsList());
+
         state.setListA(playerA.getChosenBalls(state));
         System.out.println("The chose list by A: " + state.getListA());
         state.getWinner(playerA, playerB);
-        System.out.println("Is final state? " + state.isFinalState());
+
+        System.out.println("Final state: " + state.isFinalState());
     }
 }

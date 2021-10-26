@@ -1,6 +1,7 @@
 package state;
 
 import lombok.Data;
+import players.Player;
 import players.PlayerA;
 import players.PlayerB;
 
@@ -12,12 +13,28 @@ public class State {
     private final List<Integer> ballsList = new LinkedList<>();
     private List<Integer> listA = new LinkedList<>();
     private List<Integer> listB = new LinkedList<>();
-    private String winnerName = null;
-    private final int n;
-    private final int m;
-    private final int k;
+    private Player winner;
+    private int n;
+    private int m;
+    private int k;
 
-    public State(int n, int m, int k) {
+    public void getWinner(PlayerA playerA, PlayerB playerB) {
+        for (int i = 0; i < 2 * this.n; i++) {
+            this.listB = playerB.getChosenBalls(this);
+            System.out.println("The chose list by B: " + this.listB);
+            int number = playerA.getNumberOfCommonBalls(this);
+            System.out.println("The number of common balls: " + number);
+            if (number == this.k) {
+                System.out.println("The winner is PlayerB.");
+                this.winner = playerB;
+                return;
+            }
+        }
+        this.winner = playerA;
+        System.out.println("The winner is PlayerA.");
+    }
+
+    public State initializeState(int n, int m, int k) {
         this.n = n;
         this.m = m;
         this.k = k;
@@ -28,29 +45,10 @@ public class State {
             }
             k++;
         }
+        return this;
     }
 
-    public void getWinner(PlayerA playerA, PlayerB playerB) {
-        for (int i = 0; i < 2 * this.n; i++) {
-            this.listB = playerB.getChosenBalls(this);
-            System.out.println("The chose list by B: " + this.listB);
-            int number = playerA.getNumberOfCommonBalls(this);
-            System.out.println("The number of common balls: " + number);
-            if (number == this.k) {
-                System.out.println("The winner is PlayerB.");
-                this.winnerName = "PlayerB";
-                return;
-            }
-        }
-        this.winnerName = "PlayerA";
-        System.out.println("The winner is PlayerA.");
-    }
-
-    public boolean isInitialState() {
-        return this.listA.isEmpty() && this.listB.isEmpty() && this.winnerName == null;
-    }
-
-    public boolean isFinalState() {
-        return !(this.winnerName == null);
+    public Player isFinalState() {
+        return this.winner;
     }
 }
