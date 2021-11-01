@@ -1,7 +1,9 @@
 import players.PlayerA;
 import players.PlayerB;
 import state.State;
+import util.Utils;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -31,5 +33,9 @@ public class Main {
         state.getWinner(playerA, playerB);
 
         System.out.println("Final state: " + state.isFinalState());
+
+
+        List<Integer> list = Utils.readListFromHuman(k, n, m);
+        System.out.println("List A equals list from human? " + playerA.getNumberOfCommonBallsBetweenAAndAListFromHuman(state, list));
     }
 }

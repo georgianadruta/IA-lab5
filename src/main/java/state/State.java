@@ -13,7 +13,7 @@ public class State {
     private final List<Integer> ballsList = new LinkedList<>();
     private List<Integer> listA = new LinkedList<>();
     private List<Integer> listB = new LinkedList<>();
-    private Player winner;
+    private Player winner = null;
     private int n;
     private int m;
     private int k;
@@ -22,7 +22,7 @@ public class State {
         for (int i = 0; i < 2 * this.n; i++) {
             this.listB = playerB.getChosenBalls(this);
             System.out.println("The chose list by B: " + this.listB);
-            int number = playerA.getNumberOfCommonBalls(this);
+            int number = playerA.getNumberOfCommonBallsBetweenAAndB(this);
             System.out.println("The number of common balls: " + number);
             if (number == this.k) {
                 System.out.println("The winner is PlayerB.");
@@ -48,7 +48,7 @@ public class State {
         return this;
     }
 
-    public Player isFinalState() {
-        return this.winner;
+    public boolean isFinalState() {
+        return this.winner == null;
     }
 }
