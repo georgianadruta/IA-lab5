@@ -6,7 +6,7 @@ import java.util.*;
 
 public abstract class Player {
 
-    public List<Integer> getChosenBalls(State state) {
+    public List<Integer> getKBallsByBotPlayer(State state) {
         Random rand = new Random();
         List<Integer> copyBallsList = new ArrayList<>(state.getBallsList());
         List<Integer> newList = new LinkedList<>();
